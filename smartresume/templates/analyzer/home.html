@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="hero text-center">
+  <div class="container">
+    <h1 class="display-4 fw-bold">AI-Powered Smart Resume Analyzer</h1>
+    <p class="lead mt-4">
+      Upload your resume and let our intelligent system match it with ideal job roles.  
+      Get suggestions to improve your resume and compare it with real job descriptions.
+    </p>
+
+    <!-- Animated Resume Image -->
+    <div class="my-4">
+      <img src="https://img.freepik.com/free-vector/ai-resume-concept-illustration_114360-9842.jpg"
+           alt="AI Resume Illustration"
+           class="img-fluid rounded shadow resume-animation">
+    </div>
+
+    <!-- CTA Buttons -->
+    <div class="mt-4">
+      <a href="{% url 'register' %}" class="btn btn-success btn-lg me-2">Get Started</a>
+      <a href="{% url 'login' %}" class="btn btn-outline-secondary btn-lg">Already have an account?</a>
+    </div>
+  </div>
+</section>
+
+<!-- Floating Animation Style -->
+<style>
+  .resume-animation {
+    animation: float 3s ease-in-out infinite;
+    max-width: 400px;
+    transition: transform 0.3s ease;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+  }
+
+  .resume-animation:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0, 200, 255, 0.6);
+  }
+</style>
+{% endblock %}

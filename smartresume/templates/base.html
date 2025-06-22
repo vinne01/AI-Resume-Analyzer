@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Smart Resume Analyzer</title> 
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --bg-light: #f4f8fb;
+      --bg-dark: #0d1117;
+      --text-light: #ffffff;
+      --text-dark: #212529;
+      --footer-bg-light: rgba(240, 240, 240, 0.8);
+      --footer-bg-dark: #161b22;
+    }
+
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+
+    body.dark-mode {
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+    }
+
+    .navbar, .footer {
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+
+    .navbar-light {
+      background-color: var(--bg-light) !important;
+    }
+
+    .navbar-dark {
+      background-color: var(--bg-dark) !important;
+    }
+
+    .navbar .navbar-brand {
+      margin: auto;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #0d6efd !important;
+    }
+
+    .footer {
+      background-color: var(--footer-bg-light);
+      padding: 30px 0;
+      margin-top: auto;
+      font-size: 1.1rem;
+    }
+
+    body.dark-mode .footer {
+      background-color: var(--footer-bg-dark);
+      color: var(--text-light);
+    }
+
+    .form-check-label {
+      transition: color 0.4s ease;
+    }
+
+    .hero h1, .hero p, .hero a {
+      transition: color 0.4s ease, background 0.4s ease;
+    }
+
+    .main-content a.btn {
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    /* Improve dark mode contrast */
+    body.dark-mode a {
+      color: #58a6ff;
+    }
+
+    body.dark-mode .btn-outline-secondary {
+      border-color: #58a6ff;
+      color: #58a6ff;
+    }
+
+    body.dark-mode .btn-outline-secondary:hover {
+      background-color: #58a6ff;
+      color: #0d1117;
+    }
+  </style>
+</head>
+<body id="page-body" class="bg-light text-dark">
+
+<!-- Navbar -->
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light shadow py-3">
+  <div class="container justify-content-between">
+    <a class="navbar-brand text-center w-100" href="{% url 'dashboard' %}">Smart Resume Analyzer</a>
+    <div class="position-absolute end-0 me-3">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="darkModeToggle">
+        <label class="form-check-label text-dark" id="modeLabel" for="darkModeToggle">Night Mode</label>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Flash Messages -->
+<div class="container mt-4">
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
+    {% endfor %}
+  {% endif %}
+</div>
+
+<!-- Main Page Content -->
+<div class="main-content">
+  {% block content %}{% endblock %}
+</div>
+
+<!-- Footer -->
+<footer class="footer text-center text-muted">
+  &copy; 2025 <strong>Smart Resume Analyzer</strong>. All rights reserved.
+</footer>
+
+<!-- Dark Mode Toggle Script -->
+<script>
+  const toggle = document.getElementById('darkModeToggle');
+  const body = document.getElementById('page-body');
+  const nav = document.getElementById('navbar');
+  const modeLabel = document.getElementById('modeLabel');
+
+  toggle.addEventListener('change', () => {
+    if (toggle.checked) {
+      body.classList.add('dark-mode');
+      nav.classList.remove('navbar-light');
+      nav.classList.add('navbar-dark');
+      modeLabel.classList.replace('text-dark', 'text-light');
+    } else {
+      body.classList.remove('dark-mode');
+      nav.classList.remove('navbar-dark');
+      nav.classList.add('navbar-light');
+      modeLabel.classList.replace('text-light', 'text-dark');
+    }
+  });
+</script>
+
+</body>
+</html>

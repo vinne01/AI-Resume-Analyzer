@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+  <div class="col-md-8">
+    <h2 class="mb-4 text-center fw-bold animate-slide-up">Resume Analysis Result</h2>
+
+    <div class="card p-4 shadow-sm animate-slide-up result-card">
+      {% comment %} <h5><strong>Matched Role:</strong> {{ result.matched_roles }}</h5> {% endcomment %}
+      
+      {% if result.score >= 50 %}
+        <p class="fs-4 fw-bold text-success">Score: {{ result.score }}</p>
+      {% else %}
+        <p class="fs-4 fw-bold text-danger">Score: {{ result.score }}</p>
+      {% endif %}
+
+      <p class="mt-3 mb-1"><strong>Improvement Suggestions:</strong></p>
+      <pre class="text-success" style="white-space: pre-wrap;">{{ result.improvement_suggestions }}</pre>
+    </div>
+
+    <div class="text-center mt-4">
+      <a href="{% url 'dashboard' %}" class="btn btn-primary px-4 py-2">Back to Dashboard</a>
+    </div>
+  </div>
+</div>
+
+<!-- Animation & Styling -->
+<style>
+  .animate-slide-up {
+    animation: slideUp 0.8s ease forwards;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  @keyframes slideUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  body.dark-mode .result-card {
+    background-color: #1f1f1f;
+    color: #ffffff;
+    border: 1px solid #444;
+  }
+
+  body.dark-mode pre {
+    color: #48ff99;
+  }
+
+  .result-card p {
+    font-size: 1.1rem;
+  }
+</style>
+{% endblock %}
